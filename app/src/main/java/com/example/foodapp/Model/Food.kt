@@ -6,7 +6,8 @@ data class Food(
     var FoodName : String="",
     var RestaurantName : String="",
     var price : String="",
-    var Offer : String=""
+    var Offer : String="",
+    var Category : String=""
 
 
 )

@@ -32,17 +32,11 @@ class FoodAdapter (private val context: Context, private val mList: ArrayList<Fo
     override fun onBindViewHolder(holder: FoodHolder, position: Int) {
         // Bind data to views here
         val datt = mList[position]
-        Glide
-            .with(context)
-            .load(datt.FoodImage)
-            .centerCrop()
-            //.placeholder(R.drawable.loading_spinner)
-            .into(holder.imagefood)
         holder.nameFood.text = datt.FoodName
         holder.restroName.text = datt.RestaurantName
         holder.price.text = datt.price +"Tk"
         holder.tvcount.text = count.toString()
-        holder.offers.text = datt.Offer
+        holder.offers.text = datt.Offer + "% Off"
         if (datt.FoodImage.isNotEmpty()) {
             Glide.with(context)
                 .load(datt.FoodImage)
@@ -70,7 +64,7 @@ class FoodAdapter (private val context: Context, private val mList: ArrayList<Fo
         holder.addCart.setOnClickListener {
             if (isUserAuthenticated()) {
                 // If authenticated, show the dialog
-                showConfirmationDialog(datt.FoodID,count)
+                showConfirmationDialog(datt.FoodID,count,datt.Category,datt.FoodImage,datt.FoodName,datt.RestaurantName,datt.price)
             } else {
                 // If not authenticated, simply add the item to the cart
                 showLoginDialog()
@@ -79,7 +73,15 @@ class FoodAdapter (private val context: Context, private val mList: ArrayList<Fo
 
 
     }
-    private fun showConfirmationDialog(foodID: String, count: Int) {
+    private fun showConfirmationDialog(
+        foodID: String,
+        count: Int,
+        category: String,
+        foodImage: String,
+        foodName: String,
+        restaurantName: String,
+        price: String
+    ) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Confirmation")
         builder.setMessage("Are you sure you want to add this item to the cart?")
@@ -90,10 +92,17 @@ class FoodAdapter (private val context: Context, private val mList: ArrayList<Fo
 
             val productMap = HashMap<String,Any>()
             productMap["ProductId"] = foodID
-            productMap["ProductCount"] = count
-            productMap["ProductStatus"] = ""
+            productMap["ProductCount"] = count.toString()
+            productMap["ProductCategory"] = category
+            productMap["ProductStatus"] = "Just Ordered"
             productMap["ProductBayer"] = auth.currentUser?.uid.toString()
-            ref.push().setValue(productMap).addOnSuccessListener {
+            productMap["FoodImage"] = foodImage
+            productMap["FoodName"] = foodName
+            productMap["RestaurantName"] = restaurantName
+            productMap["price"] = price
+
+
+            ref.child(foodID).setValue(productMap).addOnSuccessListener {
                 Toast.makeText(context, "Product Added", Toast.LENGTH_SHORT).show()
 
             }.addOnFailureListener {

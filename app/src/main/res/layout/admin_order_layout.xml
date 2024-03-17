@@ -85,11 +85,13 @@
             android:id="@+id/tvCounttt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="4dp"
             android:text="5 Item"
             android:textColor="@color/grad3"
             android:textSize="15sp"
             android:textStyle="bold"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/price" />
@@ -126,27 +128,27 @@
             app:layout_constraintTop_toBottomOf="@+id/restroName" />
 
         <TextView
-            android:id="@+id/tvState"
+            android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="Shipped"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="5dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvCancel"
+            app:layout_constraintEnd_toStartOf="@+id/tvUpdate"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/restroName" />
 
         <TextView
-            android:id="@+id/tvCancel"
+            android:id="@+id/tvUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="Cancel Order"
+            android:layout_marginEnd="15dp"
+            android:text="Update State"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/read"

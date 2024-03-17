@@ -56,6 +56,12 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("FOOD_NAME","cake")
             startActivity(intent)
         }
+        binding.myOrder.setOnClickListener {
+            startActivity(Intent(this,MyOrderActivity::class.java))
+        }
+        binding.AdminButton.setOnClickListener {
+            startActivity(Intent(this,AdminActivity::class.java))
+        }
 
     }
 }

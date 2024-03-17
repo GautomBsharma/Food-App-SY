@@ -107,6 +107,8 @@ class AddFoodActivity : AppCompatActivity() {
         updateMap["RestaurantName"] = binding.restrodentName.text.toString()
         updateMap["price"] = binding.edPrice.text.toString()
         updateMap["Offer"] = binding.edOffers.text.toString()
+        updateMap["Category"] = path
+
 
         if (postId != null) {
             dbRef.child(postId).setValue(updateMap).addOnSuccessListener {

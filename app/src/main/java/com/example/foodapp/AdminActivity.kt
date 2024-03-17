@@ -4,32 +4,34 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foodapp.Adapter.AdminOrderAdapter
 import com.example.foodapp.Adapter.MyOrderAdapter
 import com.example.foodapp.Model.MyOrder
-import com.example.foodapp.databinding.ActivityMyOrderBinding
+import com.example.foodapp.databinding.ActivityAdminBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class MyOrderActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMyOrderBinding
-    private lateinit var adapter: MyOrderAdapter
+class AdminActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityAdminBinding
+    private lateinit var adapter: AdminOrderAdapter
     private lateinit var orderList:ArrayList<MyOrder>
     private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMyOrderBinding.inflate(layoutInflater)
+        binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         auth = FirebaseAuth.getInstance()
         orderList = ArrayList()
-        adapter = MyOrderAdapter(this,orderList)
-        binding.orderRecyler.layoutManager = LinearLayoutManager(this)
-        binding.orderRecyler.adapter = adapter
+        adapter = AdminOrderAdapter(this,orderList)
+        binding.adminRecycle.layoutManager = LinearLayoutManager(this)
+        binding.adminRecycle.adapter = adapter
         getdata()
     }
-
     private fun getdata() {
         val uid = auth.currentUser?.uid.toString()
         val ref = FirebaseDatabase.getInstance().reference.child("ProductCart")
@@ -41,9 +43,7 @@ class MyOrderActivity : AppCompatActivity() {
                     for (childSnapshot in snapshot.children) {
                         val data = childSnapshot.getValue(MyOrder::class.java)
                         if (data != null) {
-                            if (uid == data.ProductBayer) {
-                                orderList.add(data)
-                            }
+                            orderList.add(data)
                         }
                     }
                     adapter.notifyDataSetChanged()
